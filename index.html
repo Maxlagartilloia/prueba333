@@ -26,9 +26,13 @@
     button{background:linear-gradient(180deg,var(--brand),#0ea5ff);color:#001222;border:none;border-radius:10px;padding:10px 20px;font-weight:700;cursor:pointer;box-shadow:0 10px 35px rgba(46,208,255,.25)}
     .post{background:linear-gradient(180deg,#0b142e,#0a1126);border:1px solid rgba(125,214,255,.18);border-radius:14px;padding:14px;margin-bottom:10px}
     footer{text-align:center;margin-top:auto;padding:20px;color:var(--muted);font-size:14px;border-top:1px solid rgba(125,214,255,.15)}
+    #bg-net{position:fixed;inset:0;z-index:0;display:block}
+  header,main,footer{position:relative;z-index:1}
   </style>
 </head>
 <body>
+  <!-- Fondo animado: red de puntos y líneas tipo ADN -->
+  <canvas id="bg-net" aria-hidden="true"></canvas>
   <header>
     <div class="logo"><img src="https://i.postimg.cc/dtmDQrsz/IMG-0318.jpg" alt="CL Logo"></div>
     <h1>Generador de Posts • Criss Lombeida</h1>
@@ -73,6 +77,83 @@
     function render(posts){const wrap=$("#results");wrap.innerHTML="";posts.forEach((p,i)=>{const el=document.createElement("div");el.className="post";el.innerHTML=`<h4>Post #${i+1}</h4><p>${p.full}</p><button class='btn' data-copy='${p.full.replace(/`/g,"\\`")}'>📋 Copiar</button>`;wrap.appendChild(el)});wrap.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",async()=>{await navigator.clipboard.writeText(btn.getAttribute("data-copy"));btn.textContent="✅ Copiado";setTimeout(()=>btn.textContent="📋 Copiar",1200);}));}
     $("#btnGen").addEventListener("click",()=>{const nicho=$("#nicho").value,objetivo=$("#objetivo").value,tono=$("#tono").value,custom=($("#custom").value||"").split(",").map(s=>s.trim()).filter(Boolean);const posts=[];for(let i=0;i<5;i++)posts.push(generatePost({nicho,objetivo,tono,limit:60,banks:DEFAULT,customWords:custom}));render(posts);});
     document.querySelector("#year").textContent=new Date().getFullYear();
+
+    // ===== Fondo animado tipo ADN (nodos + líneas) =====
+    (function(){
+      const canvas=document.getElementById('bg-net');
+      const ctx=canvas.getContext('2d');
+      const DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
+      let W=0,H=0,POINTS=[],RAF=null;
+
+      const palette={
+        dot:'rgba(160,190,220,0.9)',
+        line:'rgba(125,214,255,', // alpha variable
+      };
+
+      function resize(){
+        W=canvas.width= Math.floor(window.innerWidth*DPR);
+        H=canvas.height=Math.floor(window.innerHeight*DPR);
+        canvas.style.width=window.innerWidth+'px';
+        canvas.style.height=window.innerHeight+'px';
+      }
+
+      function rand(a,b){return a+Math.random()*(b-a)}
+
+      function init(){
+        POINTS.length=0;
+        const isMobile=window.innerWidth<768;
+        const n=isMobile?38:88; // densidad controlada
+        for(let i=0;i<n;i++){
+          POINTS.push({
+            x:rand(0,W), y:rand(0,H),
+            vx:rand(-0.12,0.12)*DPR, vy:rand(-0.12,0.12)*DPR,
+            r:rand(1.2,2.2)*DPR
+          });
+        }
+      }
+
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        // líneas
+        const maxDist = (window.innerWidth<768?110:140)*DPR;
+        for(let i=0;i<POINTS.length;i++){
+          const p=POINTS[i];
+          for(let j=i+1;j<POINTS.length;j++){
+            const q=POINTS[j];
+            const dx=p.x-q.x, dy=p.y-q.y; const d=Math.hypot(dx,dy);
+            if(d<maxDist){
+              const a = 0.35*(1-d/maxDist); // alpha según distancia
+              ctx.strokeStyle = palette.line + a + ')';
+              ctx.lineWidth = 1*DPR;
+              ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+            }
+          }
+        }
+        // puntos
+        ctx.fillStyle=palette.dot;
+        for(const p of POINTS){
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+          p.x+=p.vx; p.y+=p.vy;
+          if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+        }
+        RAF=requestAnimationFrame(step);
+      }
+
+      function start(){
+        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+          // usuarios que prefieren menos animación
+          ctx.clearRect(0,0,W,H); return;
+        }
+        cancelAnimationFrame(RAF);
+        resize(); init(); step();
+      }
+
+      window.addEventListener('resize',()=>{resize();});
+      window.addEventListener('visibilitychange',()=>{
+        if(document.hidden){cancelAnimationFrame(RAF);} else {start();}
+      });
+      start();
+    })();
   </script>
 </body>
 </html>
