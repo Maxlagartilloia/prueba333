@@ -1,284 +1,325 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Generador de Posts | Locos por Aprender</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="App gratuita para generar posts automáticos con hook, texto, CTA y hashtags.">
-  <style>
-    :root{
-      --bg:#0f0f12; --card:#15161a; --ink:#e8e8ea; --muted:#a7a7b0;
-      --brand:#ff2d55; --accent:#00e0b8; --stroke:#23242a;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0d0d10,#14151a);color:var(--ink);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial}
-    header{padding:28px 16px;text-align:center;border-bottom:1px solid var(--stroke)}
-    header h1{margin:4px 0 6px;font-size:22px;letter-spacing:.2px}
-    header p{margin:0;color:var(--muted);font-size:14px}
-    .wrap{max-width:980px;margin:24px auto;padding:0 16px 48px}
-    .grid{display:grid;gap:16px;grid-template-columns:1fr}
-    @media(min-width:960px){.grid{grid-template-columns:340px 1fr}}
-    .panel{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:16px}
-    h2{margin:0 0 10px;font-size:16px}
-    label{display:block;margin:10px 0 6px;color:var(--muted);font-size:13px}
-    input,textarea,select{
-      width:100%;padding:12px 12px;border-radius:10px;border:1px solid var(--stroke);
-      background:#0f1014;color:var(--ink);outline:none
-    }
-    textarea{min-height:96px;resize:vertical}
-    .row{display:flex;gap:10px}
-    .row>*{flex:1}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:12px 14px;border-radius:10px;border:1px solid var(--stroke);
-      background:linear-gradient(180deg,#1d1f24,#191b20);color:var(--ink);
-      cursor:pointer;text-decoration:none;font-weight:600
-    }
-    .btn:hover{border-color:#2b2d36}
-    .btn.primary{background:linear-gradient(180deg,var(--brand),#c51f48);border:none}
-    .btn.ghost{background:transparent;border:1px solid var(--stroke)}
-    .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1c1e24;border:1px solid var(--stroke);font-size:12px;color:var(--muted)}
-    .post{background:#101116;border:1px solid var(--stroke);border-radius:12px;padding:14px;position:relative}
-    .post h3{margin:0 0 6px;font-size:14px;color:#dcdce2}
-    .meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-    .muted{color:var(--muted);font-size:13px}
-    .tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .footer{margin-top:20px;color:var(--muted);font-size:12px;text-align:center}
-    .brand{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px}
-    .brand b{color:#fff}
-    .accent{color:var(--accent)}
-    .tiny{font-size:12px;color:var(--muted)}
-    .sep{height:1px;background:var(--stroke);margin:12px 0}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Generador de Posts • Locos por Aprender</title>
+<meta name="description" content="App gratuita sin API: combina bancos de palabras y genera posts listos para redes con hook, beneficio, CTA y hashtags.">
+<style>
+:root{
+  --bg:#0f0f12;--card:#15161a;--ink:#e9e9ef;--muted:#a8a8b3;--brand:#ff2d55;--stroke:#23242a;--accent:#00e0b8;
+}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0d0d10,#14151a);color:var(--ink);font:15px/1.55 Inter,system-ui,Segoe UI,Roboto,Arial}
+header{padding:28px 16px;text-align:center;border-bottom:1px solid var(--stroke)}
+h1{margin:2px 0 6px;font-size:22px} header p{margin:0;color:var(--muted)}
+.wrap{max-width:1080px;margin:20px auto;padding:0 16px 48px}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:980px){.grid{grid-template-columns:360px 1fr}}
+.panel{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:16px}
+h2{margin:0 0 10px;font-size:16px}
+label{display:block;margin:10px 0 6px;color:var(--muted);font-size:13px}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--stroke);background:#0f1014;color:var(--ink);outline:none}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1c1e24;border:1px solid var(--stroke);font-size:12px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;border:1px solid var(--stroke);background:linear-gradient(180deg,#1d1f24,#191b20);color:var(--ink);cursor:pointer;font-weight:600;text-decoration:none}
+.btn:hover{border-color:#2b2d36}.btn.primary{background:linear-gradient(180deg,var(--brand),#c51f48);border:none}
+.sep{height:1px;background:var(--stroke);margin:12px 0}
+.post{background:#101116;border:1px solid var(--stroke);border-radius:12px;padding:14px}
+.post h3{margin:0 0 6px;font-size:14px;color:#dcdce8}
+.muted{color:var(--muted);font-size:13px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.footer{margin-top:14px;color:var(--muted);font-size:12px;text-align:center}
+.brand{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px}
+.accent{color:var(--accent)}
+.small{font-size:12px;color:var(--muted)}
+.notice{background:#12131a;border:1px dashed #2e3040;padding:10px;border-radius:10px;color:#cfcfe6}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Generador de Posts (gratis)</h1>
-    <p>Crea textos listos con <span class="accent">Hook + Descripción + CTA + Hashtags</span> para tu negocio.</p>
-    <div class="brand"><span class="badge">by Locos por Aprender · Criss Lombeida AI Studio</span></div>
-  </header>
+<header>
+  <h1>Generador de Posts (sin API)</h1>
+  <p>Hook + Beneficio + Prueba + Oferta + CTA + Hashtags • 100% navegador</p>
+  <div class="brand"><span class="badge">by Locos por Aprender · Criss Lombeida AI Studio</span></div>
+</header>
 
-  <div class="wrap grid">
-    <!-- Control panel -->
-    <section class="panel">
-      <h2>🎯 Configura tu post</h2>
+<div class="wrap grid">
+  <section class="panel">
+    <h2>🎯 Configura</h2>
 
-      <label>¿Qué vendes / Nicho?</label>
-      <input id="nicho" placeholder="Ej: chocobananas artesanales / papelería / ropa deportiva">
+    <label>¿Qué vendes / Nicho?</label>
+    <input id="nicho" placeholder="Ej: chocobananas artesanales / papelería / ropa deportiva">
 
-      <div class="row">
-        <div>
-          <label>Objetivo</label>
-          <select id="objetivo">
-            <option value="vender hoy">Vender hoy</option>
-            <option value="generar comentarios">Generar comentarios</option>
-            <option value="conseguir mensajes">Conseguir mensajes</option>
-            <option value="atraer visitas al local">Atraer visitas al local</option>
-            <option value="agendar pedidos">Agendar pedidos</option>
-          </select>
-        </div>
-        <div>
-          <label>Tono</label>
-          <select id="tono">
-            <option value="cercano">Cercano</option>
-            <option value="energético">Energético</option>
-            <option value="elegante">Elegante</option>
-            <option value="divertido">Divertido</option>
-            <option value="autoridad">Autoridad</option>
-          </select>
-        </div>
+    <div class="row">
+      <div>
+        <label>Objetivo</label>
+        <select id="objetivo">
+          <option value="vender hoy">Vender hoy</option>
+          <option value="generar comentarios">Generar comentarios</option>
+          <option value="conseguir mensajes">Conseguir mensajes</option>
+          <option value="atraer visitas">Atraer visitas</option>
+          <option value="agendar pedidos">Agendar pedidos</option>
+        </select>
       </div>
-
-      <label>Frases/Palabras propias (opcional, separadas por coma)</label>
-      <textarea id="custom" placeholder="Ej: hecho en casa, receta familiar, crujiente, entrega hoy, promo 2x1"></textarea>
-
-      <div class="row" style="margin-top:8px">
-        <button class="btn primary" id="btnGen">⚡ Generar 5 posts</button>
-        <button class="btn ghost" id="btnClear">🧽 Limpiar</button>
+      <div>
+        <label>Tono</label>
+        <select id="tono">
+          <option value="cercano">Cercano</option>
+          <option value="energético">Energético</option>
+          <option value="elegante">Elegante</option>
+          <option value="divertido">Divertido</option>
+          <option value="autoridad">Autoridad</option>
+        </select>
       </div>
+    </div>
 
-      <div class="sep"></div>
-      <div class="tiny">
-        Sugerencia: máximo 60 palabras por post. Puedes regenerar cuantas veces quieras. No usa IA de servidor ni API: todo ocurre en tu navegador.
+    <div class="row">
+      <div>
+        <label>N° de posts</label>
+        <select id="cantidad">
+          <option>3</option><option selected>5</option><option>8</option><option>10</option>
+        </select>
       </div>
-    </section>
-
-    <!-- Results -->
-    <section class="panel">
-      <h2>📝 Resultados</h2>
-      <div id="results" class="grid" style="grid-template-columns:1fr;gap:12px"></div>
-      <div class="tools" style="margin-top:12px">
-        <button class="btn" id="btnRegenerate" disabled>🔄 Regenerar</button>
-        <button class="btn" id="btnExport" disabled>⬇️ Exportar .txt</button>
+      <div>
+        <label>Límite de palabras por post</label>
+        <select id="limite">
+          <option>45</option><option selected>60</option><option>75</option>
+        </select>
       </div>
-      <div class="footer">Consejo: copia 2–3 y prueba cuál rinde mejor. Optimiza según comentarios/guardados.</div>
-    </section>
-  </div>
+    </div>
 
-  <script>
-    // --- Diccionarios base (personalízalos cuando quieras) ---
-    const HOOKS = [
-      "🚀 ¿Listo para subir de nivel con {nicho}?",
-      "😋 Antojo de {nicho}? Mira esto…",
-      "💥 10 segundos para convencerte con {nicho}.",
-      "🤯 Lo que nadie te contó sobre {nicho}.",
-      "✨ Hoy te vas a enamorar de {nicho}."
-    ];
-    const BENEFICIOS = [
-      "sabor que conquista el primer bocado",
-      "calidad que se nota en cada detalle",
-      "hecho con cariño y enfoque en ti",
-      "listo para alegrarte el día",
-      "pensado para exigentes como tú"
-    ];
-    const PRUEBAS = [
-      "receta familiar", "ingredientes seleccionados", "edición limitada",
-      "hecho a mano", "frescura garantizada", "clientes felices"
-    ];
-    const CTAS = {
-      "vender hoy": ["Pide el tuyo hoy 🛒", "Haz tu pedido ahora 📲", "Escríbenos y te apartamos 💬"],
-      "generar comentarios": ["Comenta QUIERO y te envío info 💬", "Dime ‘QUIERO’ y te paso promo ⚡", "¿Te interesa? Escribe QUIERO 👇"],
-      "conseguir mensajes": ["Envíanos DM y te respondemos ahora 💬", "Escríbenos y te guiamos paso a paso 📩"],
-      "atraer visitas al local": ["Ven hoy y pruébalo en el local 📍", "Te esperamos, hay sorpresa 🎁"],
-      "agendar pedidos": ["Agenda para hoy mismo 🗓️", "Reserva tu pedido en 30s ⏱️"]
-    };
-    const TONOS = {
-      "cercano": ["contigo", "hecho a tu medida", "como en casa"],
-      "energético": ["vamos con todo", "potencia tus días", "activa tu semana"],
-      "elegante": ["detalle impecable", "toque premium", "estética cuidada"],
-      "divertido": ["modo antojo ON", "nivel felicidad al 100%", "spoiler: te encantará"],
-      "autoridad": ["garantía real", "experiencia comprobada", "confianza total"]
-    };
-    const HASHTAGS = {
-      "default":["#HechoConAmor","#NegocioLocal","#PromoHoy","#CompraSeguro","#ApoyaEmprendedores"],
-    };
+    <label>Palabras/frases propias (coma “,” para separar)</label>
+    <textarea id="custom" placeholder="hecho en casa, receta familiar, crujiente, entrega hoy, promo 2x1"></textarea>
 
-    // Utilidades
-    const $ = s => document.querySelector(s);
-    const pick = arr => arr[Math.floor(Math.random()*arr.length)];
-    const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
-    const clampWords = (text,max=60)=>{
-      const words=text.split(/\s+/);
-      return words.length<=max?text:words.slice(0,max).join(" ")+"…";
-    }
+    <div class="sep"></div>
+    <div class="notice small">Tip: todo se ejecuta aquí mismo; tus palabras no se envían a ningún servidor ni se guardan (salvo que marques “Recordar mis palabras”).</div>
 
-    // Generador de hashtags según nicho (simple)
-    function buildHashtags(nicho){
-      const base = HASHTAGS.default.slice(0);
-      const clean = (nicho||"").toLowerCase().split(/\W+/).filter(Boolean).slice(0,2);
-      clean.forEach(w=>{
-        if(w.length>2) base.push("#"+cap(w.replace(/ñ/g,"n")));
-      });
-      // únicos
-      return [...new Set(base)].slice(0,5);
-    }
+    <div class="row" style="margin-top:10px">
+      <button class="btn primary" id="btnGen">⚡ Generar</button>
+      <button class="btn" id="btnReg">🔄 Regenerar</button>
+      <button class="btn" id="btnClear">🧽 Limpiar</button>
+    </div>
 
-    // Mezclador principal (sin IA, combinatorio con “sabor a IA”)
-    function generatePost({nicho, objetivo, tono, customWords=[]}){
-      const hook = pick(HOOKS).replace("{nicho}", nicho);
-      const beneficio = pick(BENEFICIOS);
-      const prueba = pick(PRUEBAS);
-      const tonoPick = pick(TONOS[tono] || TONOS["cercano"]);
-      const cta = pick(CTAS[objetivo] || CTAS["vender hoy"]);
+    <div class="row" style="margin-top:10px">
+      <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="remember"> Recordar mis palabras en este dispositivo</label>
+    </div>
 
-      // Usa algunas palabras propias si existen
-      let extra = "";
-      if(customWords.length){
-        extra = " " + pick(customWords) + (Math.random()>0.5 ? " • " + pick(customWords) : "");
-      }
+    <div class="sep"></div>
+    <h2>🧰 Editor de bancos (opcional)</h2>
+    <div class="small">Añade/edita tus listas para personalizar la “voz” de la app. No hace falta tocarlas para empezar.</div>
+    <label>Hooks (uno por línea, usa {nicho} para insertar nicho)</label>
+    <textarea id="bankHooks"></textarea>
+    <label>Beneficios (uno por línea)</label>
+    <textarea id="bankBenefits"></textarea>
+    <label>Pruebas sociales/atributos (uno por línea)</label>
+    <textarea id="bankProofs"></textarea>
+    <label>Ofertas/añadidos (uno por línea)</label>
+    <textarea id="bankOffers"></textarea>
+  </section>
 
-      const cuerpo = `${cap(nicho)} con ${beneficio}, ${prueba} y ${tonoPick}.${extra}`;
-      const texto = `${hook}\n${cuerpo}\n${cta}`;
-      const hashtags = buildHashtags(nicho).join(" ");
+  <section class="panel">
+    <h2>📝 Resultados</h2>
+    <div id="results" class="grid" style="grid-template-columns:1fr;gap:12px"></div>
+    <div class="tools" style="margin-top:12px">
+      <button class="btn" id="btnExport" disabled>⬇️ Exportar .txt</button>
+      <button class="btn" id="btnCopyAll" disabled>📋 Copiar todos</button>
+    </div>
+    <div class="footer">Consejo: prueba 2–3 variantes y quédate con la que más comentarios/guardados genere.</div>
+  </section>
+</div>
 
-      return {
-        hook, cuerpo: clampWords(cuerpo, 50), cta, hashtags,
-        full: clampWords(`${hook} ${cuerpo} ${cta} ${hashtags}`, 60)
-      };
-    }
+<script>
+// ===== Bancos por defecto (puedes ampliar) =====
+const DEFAULT = {
+  hooks: [
+    "🚀 ¿Listo para subir de nivel con {nicho}?",
+    "😋 Antojo de {nicho}? Mira esto…",
+    "💥 10 segundos para convencerte con {nicho}.",
+    "🤯 Lo que nadie te contó sobre {nicho}.",
+    "✨ Hoy te vas a enamorar de {nicho}.",
+    "🔥 Si vendes {nicho}, este mensaje es para ti.",
+    "🧠 El truco más simple para vender {nicho} hoy."
+  ],
+  benefits: [
+    "calidad que se nota en cada detalle",
+    "sabor que conquista el primer bocado",
+    "hecho con cariño y enfoque en ti",
+    "listo para alegrarte el día",
+    "precio honesto y justo",
+    "experiencia que te hace volver",
+    "textura irresistible y fresca"
+  ],
+  proofs: [
+    "receta familiar", "ingredientes seleccionados", "clientes felices",
+    "edición limitada", "hecho a mano", "frescura garantizada", "reseñas 5★"
+  ],
+  offers: [
+    "hoy con entrega rápida", "consulta combos y ahorra", "pregunta por el 2x1",
+    "hay tamaño familiar y personal", "aceptamos pedidos por WhatsApp",
+    "retira en el local", "envíos en tu zona"
+  ],
+  ctasByGoal: {
+    "vender hoy": ["Pide el tuyo hoy 🛒","Haz tu pedido ahora 📲","Aprovecha antes de que se agote ⚡"],
+    "generar comentarios": ["Comenta QUIERO y te envío la info 💬","Escribe QUIERO y te paso la promo 👇","¿Te interesa? Di QUIERO"],
+    "conseguir mensajes": ["Envíanos DM, te respondemos al instante 💬","Escríbenos y te guiamos paso a paso 📩"],
+    "atraer visitas": ["Ven hoy y pruébalo 📍","Te esperamos en el local 👋"],
+    "agendar pedidos": ["Agenda para hoy mismo 🗓️","Reserva en 30s ⏱️"]
+  },
+  tones: {
+    "cercano": ["contigo","hecho a tu medida","como en casa"],
+    "energético": ["vamos con todo","potencia tus días","activa tu semana"],
+    "elegante": ["detalle impecable","toque premium","estética cuidada"],
+    "divertido": ["modo antojo ON","nivel felicidad al 100%","spoiler: te encantará"],
+    "autoridad": ["garantía real","experiencia comprobada","confianza total"]
+  }
+};
 
-    // Render
-    function renderPosts(posts){
-      const wrap = $("#results");
-      wrap.innerHTML = "";
-      posts.forEach((p, i)=>{
-        const el = document.createElement("div");
-        el.className = "post";
-        el.innerHTML = `
-          <h3>Post #${i+1}</h3>
-          <div class="muted"><b>Hook:</b> ${p.hook}</div>
-          <div class="muted"><b>Texto:</b> ${p.cuerpo}</div>
-          <div class="muted"><b>CTA:</b> ${p.cta}</div>
-          <div class="meta"><span class="badge">≤ 60 palabras</span><span class="badge">Auto-hashtags</span></div>
-          <div class="muted"><b>Hashtags:</b> ${p.hashtags}</div>
-          <div class="tools">
-            <button class="btn" data-copy="${escapeHtml(p.full)}">📋 Copiar post</button>
-            <button class="btn ghost" data-copy="${escapeHtml(p.hashtags)}"># Copiar hashtags</button>
-          </div>
-        `;
-        wrap.appendChild(el);
-      });
-      // Activar botones
-      wrap.querySelectorAll("button").forEach(btn=>{
-        btn.addEventListener("click", async ()=>{
-          const text = unescapeHtml(btn.getAttribute("data-copy"));
-          await navigator.clipboard.writeText(text);
-          btn.textContent = "✅ Copiado";
-          setTimeout(()=>btn.textContent = btn.classList.contains("ghost") ? "# Copiar hashtags" : "📋 Copiar post", 1200);
-        });
-      });
-      $("#btnRegenerate").disabled = false;
-      $("#btnExport").disabled = false;
-    }
+// ===== Utilidades =====
+const $ = s => document.querySelector(s);
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+const unique = arr => [...new Set(arr)];
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+const clampWords = (text,max=60)=>{ const w=text.trim().split(/\s+/); return w.length<=max?text:w.slice(0,max).join(" ")+"…"; };
+const cleanList = t => unique((t||"").split(/\n/).map(s=>s.trim()).filter(Boolean));
+const CSV = arr => arr.map((p,i)=>`Post #${i+1}\n${p}\n`).join("\n");
 
-    function escapeHtml(s){ return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;"); }
-    function unescapeHtml(s){ return s.replaceAll("&lt;","<").replaceAll("&gt;",">").replaceAll("&quot;",'"').replaceAll("&amp;","&"); }
+// Hashtags simples por nicho (hasta 5)
+function buildHashtags(nicho){
+  const base = ["#NegocioLocal","#HechoConAmor","#CompraSeguro","#PromoHoy","#Emprendedores"];
+  const words = (nicho||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").split(/\W+/).filter(v=>v && v.length>2).slice(0,2);
+  words.forEach(w=>base.push("#"+w));
+  return unique(base).slice(0,5).join(" ");
+}
 
-    // Estado
-    let lastParams = null;
-    let lastPosts = [];
+// Generador principal (sin IA)
+function generatePost({nicho, objetivo, tono, limit, banks, customWords}) {
+  const hook = pick(banks.hooks).replace("{nicho}", nicho);
+  const beneficio = pick(banks.benefits);
+  const prueba = pick(banks.proofs);
+  const oferta = pick(banks.offers);
+  const tonoWord = pick(banks.tones[tono] || banks.tones["cercano"]);
+  const cta = pick(banks.ctasByGoal[objetivo] || banks.ctasByGoal["vender hoy"]);
+  let extra = "";
 
-    function run(generateNew=true){
-      const nicho = ($("#nicho").value||"tu producto estrella").trim();
-      const objetivo = $("#objetivo").value;
-      const tono = $("#tono").value;
-      const custom = ($("#custom").value||"").split(",").map(s=>s.trim()).filter(Boolean);
+  if (customWords.length) {
+    extra = " " + pick(customWords) + (Math.random()>0.6 ? " • " + pick(customWords) : "");
+  }
 
-      const params = {nicho, objetivo, tono, customWords:custom};
-      lastParams = params;
+  const cuerpo = `${cap(nicho)} con ${beneficio}, ${prueba} y ${tonoWord}. ${oferta}.${extra}`;
+  const hashtags = buildHashtags(nicho);
+  const full = clampWords(`${hook} ${cuerpo} ${cta} ${hashtags}`, limit);
 
-      if(generateNew){
-        lastPosts = Array.from({length:5}, ()=> generatePost(params));
-      }else{
-        // remezcla ligera
-        lastPosts = lastPosts.map(()=> generatePost(params));
-      }
-      renderPosts(lastPosts);
-    }
+  return { hook, cuerpo, cta, hashtags, full };
+}
 
-    $("#btnGen").addEventListener("click", ()=> run(true));
-    $("#btnRegenerate").addEventListener("click", ()=> run(false));
-    $("#btnClear").addEventListener("click", ()=>{
-      ["nicho","custom"].forEach(id=>$( "#"+id ).value="");
-      $("#results").innerHTML="";
-      $("#btnRegenerate").disabled = true;
-      $("#btnExport").disabled = true;
+// Render
+function render(posts){
+  const wrap = $("#results"); wrap.innerHTML = "";
+  posts.forEach((p,i)=>{
+    const el = document.createElement("div");
+    el.className="post";
+    el.innerHTML = `
+      <h3>Post #${i+1}</h3>
+      <div class="muted"><b>Hook:</b> ${p.hook}</div>
+      <div class="muted"><b>Texto:</b> ${p.cuerpo}</div>
+      <div class="muted"><b>CTA:</b> ${p.cta}</div>
+      <div class="muted"><b>Hashtags:</b> ${p.hashtags}</div>
+      <div class="tools">
+        <button class="btn" data-copy="${escapeHtml(p.full)}">📋 Copiar post</button>
+        <button class="btn" data-copy="${escapeHtml(p.hashtags)}"># Copiar hashtags</button>
+      </div>`;
+    wrap.appendChild(el);
+  });
+  wrap.querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click", async ()=>{
+      const t = unescapeHtml(btn.getAttribute("data-copy"));
+      await navigator.clipboard.writeText(t);
+      const old = btn.textContent; btn.textContent="✅ Copiado"; setTimeout(()=>btn.textContent=old,1100);
     });
-    $("#btnExport").addEventListener("click", ()=>{
-      if(!lastPosts.length) return;
-      const lines = lastPosts.map((p,i)=>`Post #${i+1}\n${p.full}\n\n`);
-      const blob = new Blob(lines,{type:"text/plain"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = "posts_generados.txt";
-      a.click(); URL.revokeObjectURL(url);
-    });
+  });
+  $("#btnExport").disabled = posts.length===0;
+  $("#btnCopyAll").disabled = posts.length===0;
+}
+function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");}
+function unescapeHtml(s){return s.replaceAll("&lt;","<").replaceAll("&gt;",">").replaceAll("&quot;",'"').replaceAll("&amp;","&");}
 
-    // Autogenerar demo al cargar
-    window.addEventListener("load", ()=>{
-      $("#nicho").value = "chocobananas artesanales";
-      run(true);
-    });
-  </script>
+// Estado + bancos editables
+let BANKS = structuredClone(DEFAULT);
+function loadBanksToEditor(){
+  $("#bankHooks").value    = DEFAULT.hooks.join("\n");
+  $("#bankBenefits").value = DEFAULT.benefits.join("\n");
+  $("#bankProofs").value   = DEFAULT.proofs.join("\n");
+  $("#bankOffers").value   = DEFAULT.offers.join("\n");
+}
+function applyBanksFromEditor(){
+  const hooks = cleanList($("#bankHooks").value) || DEFAULT.hooks;
+  const benefits = cleanList($("#bankBenefits").value) || DEFAULT.benefits;
+  const proofs = cleanList($("#bankProofs").value) || DEFAULT.proofs;
+  const offers = cleanList($("#bankOffers").value) || DEFAULT.offers;
+  BANKS = {
+    hooks, benefits, proofs, offers,
+    ctasByGoal: DEFAULT.ctasByGoal,
+    tones: DEFAULT.tones
+  };
+}
+
+let LAST_POSTS = [];
+function run(generate=true){
+  applyBanksFromEditor();
+  const nicho = ($("#nicho").value||"tu producto estrella").trim();
+  const objetivo = $("#objetivo").value;
+  const tono = $("#tono").value;
+  const cantidad = parseInt($("#cantidad").value,10) || 5;
+  const limit = parseInt($("#limite").value,10) || 60;
+  const custom = ($("#custom").value||"").split(",").map(s=>s.trim()).filter(Boolean);
+
+  const posts = [];
+  const seen = new Set();
+  let guard = 0;
+  while(posts.length < cantidad && guard < cantidad*10){
+    guard++;
+    const p = generatePost({nicho, objetivo, tono, limit, banks:BANKS, customWords:custom});
+    if(!seen.has(p.full)){ posts.push(p); seen.add(p.full); }
+  }
+  LAST_POSTS = posts;
+  render(posts);
+
+  // recordar palabras personalizadas
+  if($("#remember").checked){
+    localStorage.setItem("lpa_custom_words", $("#custom").value||"");
+  } else {
+    localStorage.removeItem("lpa_custom_words");
+  }
+}
+
+// Eventos UI
+$("#btnGen").addEventListener("click", ()=> run(true));
+$("#btnReg").addEventListener("click", ()=> run(true));
+$("#btnClear").addEventListener("click", ()=>{
+  ["nicho","custom"].forEach(id=>$("#"+id).value="");
+  $("#results").innerHTML=""; $("#btnExport").disabled = true; $("#btnCopyAll").disabled = true;
+});
+$("#btnExport").addEventListener("click", ()=>{
+  if(!LAST_POSTS.length) return;
+  const text = CSV(LAST_POSTS.map(p=>p.full));
+  const blob = new Blob([text],{type:"text/plain"}); const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href=url; a.download="posts_generados.txt"; a.click(); URL.revokeObjectURL(url);
+});
+$("#btnCopyAll").addEventListener("click", async ()=>{
+  if(!LAST_POSTS.length) return;
+  const text = LAST_POSTS.map((p,i)=>`Post #${i+1}\n${p.full}`).join("\n\n");
+  await navigator.clipboard.writeText(text);
+  const btn = $("#btnCopyAll"); const old = btn.textContent; btn.textContent="✅ Copiado"; setTimeout(()=>btn.textContent=old,1100);
+});
+
+// Cargar bancos por defecto + recordar palabras
+window.addEventListener("load", ()=>{
+  loadBanksToEditor();
+  const saved = localStorage.getItem("lpa_custom_words");
+  if(saved) { $("#custom").value = saved; $("#remember").checked = true; }
+  $("#nicho").value = "chocobananas artesanales";
+  run(true);
+});
+</script>
 </body>
 </html>
