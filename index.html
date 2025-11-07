@@ -1,325 +1,78 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Generador de Posts • Locos por Aprender</title>
-<meta name="description" content="App gratuita sin API: combina bancos de palabras y genera posts listos para redes con hook, beneficio, CTA y hashtags.">
-<style>
-:root{
-  --bg:#0f0f12;--card:#15161a;--ink:#e9e9ef;--muted:#a8a8b3;--brand:#ff2d55;--stroke:#23242a;--accent:#00e0b8;
-}
-*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0d0d10,#14151a);color:var(--ink);font:15px/1.55 Inter,system-ui,Segoe UI,Roboto,Arial}
-header{padding:28px 16px;text-align:center;border-bottom:1px solid var(--stroke)}
-h1{margin:2px 0 6px;font-size:22px} header p{margin:0;color:var(--muted)}
-.wrap{max-width:1080px;margin:20px auto;padding:0 16px 48px}
-.grid{display:grid;gap:16px;grid-template-columns:1fr}
-@media(min-width:980px){.grid{grid-template-columns:360px 1fr}}
-.panel{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:16px}
-h2{margin:0 0 10px;font-size:16px}
-label{display:block;margin:10px 0 6px;color:var(--muted);font-size:13px}
-input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--stroke);background:#0f1014;color:var(--ink);outline:none}
-textarea{min-height:90px;resize:vertical}
-.row{display:flex;gap:10px}.row>*{flex:1}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1c1e24;border:1px solid var(--stroke);font-size:12px;color:var(--muted)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 12px;border-radius:10px;border:1px solid var(--stroke);background:linear-gradient(180deg,#1d1f24,#191b20);color:var(--ink);cursor:pointer;font-weight:600;text-decoration:none}
-.btn:hover{border-color:#2b2d36}.btn.primary{background:linear-gradient(180deg,var(--brand),#c51f48);border:none}
-.sep{height:1px;background:var(--stroke);margin:12px 0}
-.post{background:#101116;border:1px solid var(--stroke);border-radius:12px;padding:14px}
-.post h3{margin:0 0 6px;font-size:14px;color:#dcdce8}
-.muted{color:var(--muted);font-size:13px}
-.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.footer{margin-top:14px;color:var(--muted);font-size:12px;text-align:center}
-.brand{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px}
-.accent{color:var(--accent)}
-.small{font-size:12px;color:var(--muted)}
-.notice{background:#12131a;border:1px dashed #2e3040;padding:10px;border-radius:10px;color:#cfcfe6}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generador de Posts • Criss Lombeida</title>
+  <meta name="description" content="Genera publicaciones listas para redes sociales a partir de tu producto. Rápido y simple.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-0:#050914;--bg-1:#071638;--bg-2:#0a2a6b;--brand:#3fb5ff;--brand-2:#7dd6ff;--accent:#00ffd1;--ink:#e9f2ff;--muted:#a7b5d1;--card:#0a1126;--stroke:#163160;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg-0),var(--bg-1) 30%,var(--bg-2));min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0 16px}
+    header{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(125,214,255,.15)}
+    .logo img{width:58px;height:58px;border-radius:12px;box-shadow:0 0 25px rgba(63,181,255,.4)}
+    h1{font-size:20px;font-weight:800;letter-spacing:.3px}
+    main{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+    @media(max-width:900px){main{grid-template-columns:1fr}}
+    section{background:linear-gradient(180deg,rgba(10,17,38,.85),rgba(8,14,30,.85));border:1px solid rgba(125,214,255,.18);border-radius:16px;padding:20px;backdrop-filter:blur(6px)}
+    h2{margin-bottom:10px}
+    label{display:block;margin:10px 0 5px;color:var(--muted)}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--stroke);background:#0a1327;color:var(--ink);outline:none}
+    button{background:linear-gradient(180deg,var(--brand),#0ea5ff);color:#001222;border:none;border-radius:10px;padding:10px 20px;font-weight:700;cursor:pointer;box-shadow:0 10px 35px rgba(46,208,255,.25)}
+    .post{background:linear-gradient(180deg,#0b142e,#0a1126);border:1px solid rgba(125,214,255,.18);border-radius:14px;padding:14px;margin-bottom:10px}
+    footer{text-align:center;margin-top:auto;padding:20px;color:var(--muted);font-size:14px;border-top:1px solid rgba(125,214,255,.15)}
+  </style>
 </head>
 <body>
-<header>
-  <h1>Generador de Posts (sin API)</h1>
-  <p>Hook + Beneficio + Prueba + Oferta + CTA + Hashtags • 100% navegador</p>
-  <div class="brand"><span class="badge">by Locos por Aprender · Criss Lombeida AI Studio</span></div>
-</header>
-
-<div class="wrap grid">
-  <section class="panel">
-    <h2>🎯 Configura</h2>
-
-    <label>¿Qué vendes / Nicho?</label>
-    <input id="nicho" placeholder="Ej: chocobananas artesanales / papelería / ropa deportiva">
-
-    <div class="row">
-      <div>
-        <label>Objetivo</label>
-        <select id="objetivo">
-          <option value="vender hoy">Vender hoy</option>
-          <option value="generar comentarios">Generar comentarios</option>
-          <option value="conseguir mensajes">Conseguir mensajes</option>
-          <option value="atraer visitas">Atraer visitas</option>
-          <option value="agendar pedidos">Agendar pedidos</option>
-        </select>
-      </div>
-      <div>
-        <label>Tono</label>
-        <select id="tono">
-          <option value="cercano">Cercano</option>
-          <option value="energético">Energético</option>
-          <option value="elegante">Elegante</option>
-          <option value="divertido">Divertido</option>
-          <option value="autoridad">Autoridad</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div>
-        <label>N° de posts</label>
-        <select id="cantidad">
-          <option>3</option><option selected>5</option><option>8</option><option>10</option>
-        </select>
-      </div>
-      <div>
-        <label>Límite de palabras por post</label>
-        <select id="limite">
-          <option>45</option><option selected>60</option><option>75</option>
-        </select>
-      </div>
-    </div>
-
-    <label>Palabras/frases propias (coma “,” para separar)</label>
-    <textarea id="custom" placeholder="hecho en casa, receta familiar, crujiente, entrega hoy, promo 2x1"></textarea>
-
-    <div class="sep"></div>
-    <div class="notice small">Tip: todo se ejecuta aquí mismo; tus palabras no se envían a ningún servidor ni se guardan (salvo que marques “Recordar mis palabras”).</div>
-
-    <div class="row" style="margin-top:10px">
-      <button class="btn primary" id="btnGen">⚡ Generar</button>
-      <button class="btn" id="btnReg">🔄 Regenerar</button>
-      <button class="btn" id="btnClear">🧽 Limpiar</button>
-    </div>
-
-    <div class="row" style="margin-top:10px">
-      <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="remember"> Recordar mis palabras en este dispositivo</label>
-    </div>
-
-    <div class="sep"></div>
-    <h2>🧰 Editor de bancos (opcional)</h2>
-    <div class="small">Añade/edita tus listas para personalizar la “voz” de la app. No hace falta tocarlas para empezar.</div>
-    <label>Hooks (uno por línea, usa {nicho} para insertar nicho)</label>
-    <textarea id="bankHooks"></textarea>
-    <label>Beneficios (uno por línea)</label>
-    <textarea id="bankBenefits"></textarea>
-    <label>Pruebas sociales/atributos (uno por línea)</label>
-    <textarea id="bankProofs"></textarea>
-    <label>Ofertas/añadidos (uno por línea)</label>
-    <textarea id="bankOffers"></textarea>
-  </section>
-
-  <section class="panel">
-    <h2>📝 Resultados</h2>
-    <div id="results" class="grid" style="grid-template-columns:1fr;gap:12px"></div>
-    <div class="tools" style="margin-top:12px">
-      <button class="btn" id="btnExport" disabled>⬇️ Exportar .txt</button>
-      <button class="btn" id="btnCopyAll" disabled>📋 Copiar todos</button>
-    </div>
-    <div class="footer">Consejo: prueba 2–3 variantes y quédate con la que más comentarios/guardados genere.</div>
-  </section>
-</div>
-
-<script>
-// ===== Bancos por defecto (puedes ampliar) =====
-const DEFAULT = {
-  hooks: [
-    "🚀 ¿Listo para subir de nivel con {nicho}?",
-    "😋 Antojo de {nicho}? Mira esto…",
-    "💥 10 segundos para convencerte con {nicho}.",
-    "🤯 Lo que nadie te contó sobre {nicho}.",
-    "✨ Hoy te vas a enamorar de {nicho}.",
-    "🔥 Si vendes {nicho}, este mensaje es para ti.",
-    "🧠 El truco más simple para vender {nicho} hoy."
-  ],
-  benefits: [
-    "calidad que se nota en cada detalle",
-    "sabor que conquista el primer bocado",
-    "hecho con cariño y enfoque en ti",
-    "listo para alegrarte el día",
-    "precio honesto y justo",
-    "experiencia que te hace volver",
-    "textura irresistible y fresca"
-  ],
-  proofs: [
-    "receta familiar", "ingredientes seleccionados", "clientes felices",
-    "edición limitada", "hecho a mano", "frescura garantizada", "reseñas 5★"
-  ],
-  offers: [
-    "hoy con entrega rápida", "consulta combos y ahorra", "pregunta por el 2x1",
-    "hay tamaño familiar y personal", "aceptamos pedidos por WhatsApp",
-    "retira en el local", "envíos en tu zona"
-  ],
-  ctasByGoal: {
-    "vender hoy": ["Pide el tuyo hoy 🛒","Haz tu pedido ahora 📲","Aprovecha antes de que se agote ⚡"],
-    "generar comentarios": ["Comenta QUIERO y te envío la info 💬","Escribe QUIERO y te paso la promo 👇","¿Te interesa? Di QUIERO"],
-    "conseguir mensajes": ["Envíanos DM, te respondemos al instante 💬","Escríbenos y te guiamos paso a paso 📩"],
-    "atraer visitas": ["Ven hoy y pruébalo 📍","Te esperamos en el local 👋"],
-    "agendar pedidos": ["Agenda para hoy mismo 🗓️","Reserva en 30s ⏱️"]
-  },
-  tones: {
-    "cercano": ["contigo","hecho a tu medida","como en casa"],
-    "energético": ["vamos con todo","potencia tus días","activa tu semana"],
-    "elegante": ["detalle impecable","toque premium","estética cuidada"],
-    "divertido": ["modo antojo ON","nivel felicidad al 100%","spoiler: te encantará"],
-    "autoridad": ["garantía real","experiencia comprobada","confianza total"]
-  }
-};
-
-// ===== Utilidades =====
-const $ = s => document.querySelector(s);
-const pick = arr => arr[Math.floor(Math.random()*arr.length)];
-const unique = arr => [...new Set(arr)];
-const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
-const clampWords = (text,max=60)=>{ const w=text.trim().split(/\s+/); return w.length<=max?text:w.slice(0,max).join(" ")+"…"; };
-const cleanList = t => unique((t||"").split(/\n/).map(s=>s.trim()).filter(Boolean));
-const CSV = arr => arr.map((p,i)=>`Post #${i+1}\n${p}\n`).join("\n");
-
-// Hashtags simples por nicho (hasta 5)
-function buildHashtags(nicho){
-  const base = ["#NegocioLocal","#HechoConAmor","#CompraSeguro","#PromoHoy","#Emprendedores"];
-  const words = (nicho||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").split(/\W+/).filter(v=>v && v.length>2).slice(0,2);
-  words.forEach(w=>base.push("#"+w));
-  return unique(base).slice(0,5).join(" ");
-}
-
-// Generador principal (sin IA)
-function generatePost({nicho, objetivo, tono, limit, banks, customWords}) {
-  const hook = pick(banks.hooks).replace("{nicho}", nicho);
-  const beneficio = pick(banks.benefits);
-  const prueba = pick(banks.proofs);
-  const oferta = pick(banks.offers);
-  const tonoWord = pick(banks.tones[tono] || banks.tones["cercano"]);
-  const cta = pick(banks.ctasByGoal[objetivo] || banks.ctasByGoal["vender hoy"]);
-  let extra = "";
-
-  if (customWords.length) {
-    extra = " " + pick(customWords) + (Math.random()>0.6 ? " • " + pick(customWords) : "");
-  }
-
-  const cuerpo = `${cap(nicho)} con ${beneficio}, ${prueba} y ${tonoWord}. ${oferta}.${extra}`;
-  const hashtags = buildHashtags(nicho);
-  const full = clampWords(`${hook} ${cuerpo} ${cta} ${hashtags}`, limit);
-
-  return { hook, cuerpo, cta, hashtags, full };
-}
-
-// Render
-function render(posts){
-  const wrap = $("#results"); wrap.innerHTML = "";
-  posts.forEach((p,i)=>{
-    const el = document.createElement("div");
-    el.className="post";
-    el.innerHTML = `
-      <h3>Post #${i+1}</h3>
-      <div class="muted"><b>Hook:</b> ${p.hook}</div>
-      <div class="muted"><b>Texto:</b> ${p.cuerpo}</div>
-      <div class="muted"><b>CTA:</b> ${p.cta}</div>
-      <div class="muted"><b>Hashtags:</b> ${p.hashtags}</div>
-      <div class="tools">
-        <button class="btn" data-copy="${escapeHtml(p.full)}">📋 Copiar post</button>
-        <button class="btn" data-copy="${escapeHtml(p.hashtags)}"># Copiar hashtags</button>
-      </div>`;
-    wrap.appendChild(el);
-  });
-  wrap.querySelectorAll("button").forEach(btn=>{
-    btn.addEventListener("click", async ()=>{
-      const t = unescapeHtml(btn.getAttribute("data-copy"));
-      await navigator.clipboard.writeText(t);
-      const old = btn.textContent; btn.textContent="✅ Copiado"; setTimeout(()=>btn.textContent=old,1100);
-    });
-  });
-  $("#btnExport").disabled = posts.length===0;
-  $("#btnCopyAll").disabled = posts.length===0;
-}
-function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");}
-function unescapeHtml(s){return s.replaceAll("&lt;","<").replaceAll("&gt;",">").replaceAll("&quot;",'"').replaceAll("&amp;","&");}
-
-// Estado + bancos editables
-let BANKS = structuredClone(DEFAULT);
-function loadBanksToEditor(){
-  $("#bankHooks").value    = DEFAULT.hooks.join("\n");
-  $("#bankBenefits").value = DEFAULT.benefits.join("\n");
-  $("#bankProofs").value   = DEFAULT.proofs.join("\n");
-  $("#bankOffers").value   = DEFAULT.offers.join("\n");
-}
-function applyBanksFromEditor(){
-  const hooks = cleanList($("#bankHooks").value) || DEFAULT.hooks;
-  const benefits = cleanList($("#bankBenefits").value) || DEFAULT.benefits;
-  const proofs = cleanList($("#bankProofs").value) || DEFAULT.proofs;
-  const offers = cleanList($("#bankOffers").value) || DEFAULT.offers;
-  BANKS = {
-    hooks, benefits, proofs, offers,
-    ctasByGoal: DEFAULT.ctasByGoal,
-    tones: DEFAULT.tones
-  };
-}
-
-let LAST_POSTS = [];
-function run(generate=true){
-  applyBanksFromEditor();
-  const nicho = ($("#nicho").value||"tu producto estrella").trim();
-  const objetivo = $("#objetivo").value;
-  const tono = $("#tono").value;
-  const cantidad = parseInt($("#cantidad").value,10) || 5;
-  const limit = parseInt($("#limite").value,10) || 60;
-  const custom = ($("#custom").value||"").split(",").map(s=>s.trim()).filter(Boolean);
-
-  const posts = [];
-  const seen = new Set();
-  let guard = 0;
-  while(posts.length < cantidad && guard < cantidad*10){
-    guard++;
-    const p = generatePost({nicho, objetivo, tono, limit, banks:BANKS, customWords:custom});
-    if(!seen.has(p.full)){ posts.push(p); seen.add(p.full); }
-  }
-  LAST_POSTS = posts;
-  render(posts);
-
-  // recordar palabras personalizadas
-  if($("#remember").checked){
-    localStorage.setItem("lpa_custom_words", $("#custom").value||"");
-  } else {
-    localStorage.removeItem("lpa_custom_words");
-  }
-}
-
-// Eventos UI
-$("#btnGen").addEventListener("click", ()=> run(true));
-$("#btnReg").addEventListener("click", ()=> run(true));
-$("#btnClear").addEventListener("click", ()=>{
-  ["nicho","custom"].forEach(id=>$("#"+id).value="");
-  $("#results").innerHTML=""; $("#btnExport").disabled = true; $("#btnCopyAll").disabled = true;
-});
-$("#btnExport").addEventListener("click", ()=>{
-  if(!LAST_POSTS.length) return;
-  const text = CSV(LAST_POSTS.map(p=>p.full));
-  const blob = new Blob([text],{type:"text/plain"}); const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href=url; a.download="posts_generados.txt"; a.click(); URL.revokeObjectURL(url);
-});
-$("#btnCopyAll").addEventListener("click", async ()=>{
-  if(!LAST_POSTS.length) return;
-  const text = LAST_POSTS.map((p,i)=>`Post #${i+1}\n${p.full}`).join("\n\n");
-  await navigator.clipboard.writeText(text);
-  const btn = $("#btnCopyAll"); const old = btn.textContent; btn.textContent="✅ Copiado"; setTimeout(()=>btn.textContent=old,1100);
-});
-
-// Cargar bancos por defecto + recordar palabras
-window.addEventListener("load", ()=>{
-  loadBanksToEditor();
-  const saved = localStorage.getItem("lpa_custom_words");
-  if(saved) { $("#custom").value = saved; $("#remember").checked = true; }
-  $("#nicho").value = "chocobananas artesanales";
-  run(true);
-});
-</script>
+  <header>
+    <div class="logo"><img src="https://i.postimg.cc/dtmDQrsz/IMG-0318.jpg" alt="CL Logo"></div>
+    <h1>Generador de Posts • Criss Lombeida</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Configura tu publicación</h2>
+      <label>Producto</label>
+      <input id="nicho" placeholder="Ej: chocobananas artesanales / cuadernos premium / camisetas oversize">
+      <label>Objetivo</label>
+      <select id="objetivo">
+        <option value="vender hoy">Vender hoy</option>
+        <option value="generar comentarios">Generar comentarios</option>
+        <option value="conseguir mensajes">Conseguir mensajes</option>
+        <option value="atraer visitas">Atraer visitas</option>
+        <option value="agendar pedidos">Agendar pedidos</option>
+      </select>
+      <label>Tono</label>
+      <select id="tono">
+        <option value="cercano">Cercano</option>
+        <option value="energético">Energético</option>
+        <option value="elegante">Elegante</option>
+        <option value="divertido">Divertido</option>
+        <option value="autoridad">Autoridad</option>
+      </select>
+      <label>Palabras/frases (opcional, separa con coma)</label>
+      <textarea id="custom" placeholder="hecho en casa, receta familiar, crujiente, entrega hoy, 2x1"></textarea>
+      <br>
+      <button id="btnGen">Generar</button>
+    </section>
+    <section>
+      <h2>Resultados</h2>
+      <div id="results"></div>
+    </section>
+  </main>
+  <footer>© <span id="year"></span> Criss Lombeida — Hecho con cariño en la Amazonía ✨</footer>
+  <script>
+    const DEFAULT={hooks:["🔥 Antojo de {producto}? Prueba el favorito de la casa","✨ Hoy te vas a enamorar de nuestras {producto}","💥 Una mordida a estas {producto} y no hay vuelta atrás","😋 ¿Listo para tus {producto} preferidas?","🏷️ Últimos del día: {producto} recién hechas","🚀 Sube tu día con {producto} fresquitas","🍀 Lo más pedido esta semana: {producto}"],benefits:["sabor real que conquista desde el primer bocado","textura crujiente por fuera y suave por dentro","ingredientes frescos y de calidad","porciones generosas para compartir o disfrutar solo","preparadas al momento, listas para llevar","equilibrio perfecto entre dulce y frescura","hechas como en casa, con atención al detalle"],proofs:["clientes que repiten y recomiendan","recetas probadas y perfeccionadas","reseñas 5★ de nuestra comunidad","lote del día, siempre fresco","producción local con amor","control de calidad en cada unidad","edición limitada: salida rápida"],offers:["entrega hoy mismo en tu zona","retira en el local sin esperar","consulta combos y ahorra","pregunta por el 2x1 del día","tenemos tamaño personal y familiar","aceptamos pedidos por WhatsApp","envíos rápidos y seguros"],ctasByGoal:{"vender hoy":["Pide el tuyo ahora 🛒","Haz tu pedido por DM 📲","Aprovecha hoy y disfruta ⚡"],"generar comentarios":["Comenta QUIERO y te escribimos 💬","Di QUIERO y te mandamos la info 👇","¿Lo pruebas hoy? Escribe QUIERO"],"conseguir mensajes":["Envíanos DM y te ayudamos ya 💬","Escríbenos y armamos tu pedido 📩"],"atraer visitas":["Pásate hoy por el local 📍","Te esperamos con una sorpresa 👋"],"agendar pedidos":["Reserva para hoy 🗓️","Agenda en 30 segundos ⏱️"]},tones:{"cercano":["como en casa","para ti","hecho con cariño"],"energético":["potencia tu día","modo ON","vamos con todo"],"elegante":["detalle impecable","toque premium","presentación cuidada"],"divertido":["felicidad al 100%","antojo activado","spoiler: te encantará"],"autoridad":["confianza total","experiencia comprobada","garantía real"]},templates:["{hook}. {Producto} con {beneficio} — {prueba}. {oferta}. {cta} {hashtags}","{hook}. Nuestras {producto} traen {beneficio}; {prueba}. {oferta}. {cta} {hashtags}","{hook}. {Producto}: {beneficio}. {prueba}. Hoy {oferta}. {cta} {hashtags}","{hook}. Anímate a {producto} con {beneficio}. {prueba}. {oferta}. {cta} {hashtags}"]};
+    const $=s=>document.querySelector(s),pick=a=>a[Math.floor(Math.random()*a.length)],unique=a=>[...new Set(a)];
+    function buildHashtags(n){const base=["#NegocioLocal","#HechoConAmor","#CompraSeguro","#PromoHoy","#Emprendedores"],words=(n||"").toLowerCase().split(/\W+/).filter(v=>v&&v.length>2).slice(0,2);words.forEach(w=>base.push("#"+w));return unique(base).slice(0,5).join(" ");}
+    function generatePost({nicho,objetivo,tono,limit,banks,customWords}){const producto=(nicho||"tu producto").trim(),Producto=producto.charAt(0).toUpperCase()+producto.slice(1),hook=pick(banks.hooks).replaceAll("{producto}",producto).replaceAll("{Producto}",Producto),beneficio=pick(banks.benefits),prueba=pick(banks.proofs),oferta=pick(banks.offers),cta=pick(banks.ctasByGoal[objetivo]||banks.ctasByGoal["vender hoy"]);let extra="";if(customWords.length)extra=", "+pick(customWords);const hashtags=buildHashtags(producto),tpl=pick(banks.templates);let full=tpl.replaceAll("{hook}",hook).replaceAll("{producto}",producto).replaceAll("{Producto}",Producto).replaceAll("{beneficio}",beneficio+extra).replaceAll("{prueba}",prueba).replaceAll("{oferta}",oferta).replaceAll("{cta}",cta).replaceAll("{hashtags}",hashtags);return{full}};
+    function render(posts){const wrap=$("#results");wrap.innerHTML="";posts.forEach((p,i)=>{const el=document.createElement("div");el.className="post";el.innerHTML=`<h4>Post #${i+1}</h4><p>${p.full}</p><button class='btn' data-copy='${p.full.replace(/`/g,"\\`")}'>📋 Copiar</button>`;wrap.appendChild(el)});wrap.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",async()=>{await navigator.clipboard.writeText(btn.getAttribute("data-copy"));btn.textContent="✅ Copiado";setTimeout(()=>btn.textContent="📋 Copiar",1200);}));}
+    $("#btnGen").addEventListener("click",()=>{const nicho=$("#nicho").value,objetivo=$("#objetivo").value,tono=$("#tono").value,custom=($("#custom").value||"").split(",").map(s=>s.trim()).filter(Boolean);const posts=[];for(let i=0;i<5;i++)posts.push(generatePost({nicho,objetivo,tono,limit:60,banks:DEFAULT,customWords:custom}));render(posts);});
+    document.querySelector("#year").textContent=new Date().getFullYear();
+  </script>
 </body>
 </html>
